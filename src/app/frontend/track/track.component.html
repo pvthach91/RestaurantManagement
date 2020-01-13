@@ -1,0 +1,223 @@
+<body id="body" class="up-scroll" data-spy="scroll" data-target=".element-right-sidebar">
+<app-frontend-header currentPage="track" (currentPageEmit)='changePage($event)'></app-frontend-header>
+
+<div class="main-wrapper cart-page">
+  <section class="page-title" style="background-image: url(assets/resource/page-title-img.jpg);">
+  </section>
+
+  <div class="element-wrapper">
+    <section class="py-8 py-md-10">
+      <div class="container">
+        <div class="table-responsive-sm table-cart">
+          <table class="table mb-0">
+            <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col"></th>
+              <th scope="col"></th>
+              <th scope="col"></th>
+              <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td colspan="2">
+                <form role="form" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+                  <div class="input-group form-group mb-0">
+                    <input type="text" class="form-control rounded-0 text-left" placeholder="Enter your order id" aria-describedby="basic-addon2" required
+                           id="orderId" name="orderId" [(ngModel)]="form.orderId" #orderId="ngModel"
+                           [class.error-validate]="f.submitted && orderId.invalid && orderId.errors.required">
+                    <button type="submit" class="btn btn-cart btn-outline-primary text-uppercase pull-right">
+                      <i class="fa fa-history font-size-16 mr-1" aria-hidden="true"></i>Search
+                    </button>
+                </div>
+                </form>
+              </td>
+              <td class=""></td>
+              <td class=""></td>
+              <td class=""></td>
+            </tr>
+            </tbody>
+          </table>
+
+          <ul *ngIf="searchSuccessfully" class="list-unstyled d-md-flex align-items-center mb-2 mb-md-6 mb-lg-2">
+            <li class="media align-items-center mb-4 mb-md-0">
+              <div class="mr-3">
+                <a [ngClass]="isProcessing?'bg-primary border-primary text-white': ''" class="bg-icon">
+                  1.
+                </a>
+              </div>
+
+              <div class="mr-6">
+                <a class="text-dark font-weight-medium">Processing</a>
+              </div>
+
+              <div class="font-size-30 text-color mr-6">
+                <i class="fa fa-angle-right" aria-hidden="true"></i>
+              </div>
+            </li>
+
+            <li class="media align-items-center mb-4 mb-md-0">
+              <div class="mr-3">
+                <a  [ngClass]="isProcessed?'bg-primary border-primary text-white': ''" class="bg-icon">
+                  2.
+                </a>
+              </div>
+
+              <div class="mr-6">
+                <a class="text-color text-hover-dark font-weight-medium">Processed</a>
+              </div>
+
+              <div class="font-size-30 text-color mr-6">
+                <i class="fa fa-angle-right" aria-hidden="true"></i>
+              </div>
+            </li>
+
+            <li class="media align-items-center mb-4 mb-md-0">
+              <div class="mr-3">
+                <a  [ngClass]="isDelivering?'bg-primary border-primary text-white': ''" class="bg-icon">
+                  3.
+                </a>
+              </div>
+
+              <div class="mr-6">
+                <a class="text-color text-hover-dark font-weight-medium">Delivering</a>
+              </div>
+
+              <div class="font-size-30 text-color mr-6">
+                <i class="fa fa-angle-right" aria-hidden="true"></i>
+              </div>
+            </li>
+
+            <li class="media align-items-center mb-4 mb-md-0">
+              <div class="mr-3">
+                <a  [ngClass]="isFinished?'bg-primary border-primary text-white': ''" class="bg-icon">
+                  4.
+                </a>
+              </div>
+
+              <div class="mr-6">
+                <a class="text-color text-hover-dark font-weight-medium">Finished</a>
+              </div>
+            </li>
+
+            <li class="media align-items-center mb-4 mb-md-0" *ngIf="isCancelled">
+              <div class="mr-3">
+                <a  [ngClass]="isCancelled?'bg-primary border-primary text-white': ''" class="bg-icon">
+                  4.
+                </a>
+              </div>
+
+              <div class="mr-6">
+                <a class="text-color text-hover-dark font-weight-medium">Cancelled</a>
+              </div>
+            </li>
+          </ul>
+
+          <table *ngIf="searchSuccessfully" class="table mb-0">
+            <thead>
+              <tr>
+                <th scope="col"></th>
+                <th scope="col">dish</th>
+                <th scope="col">price per dish</th>
+                <th scope="col">quantity</th>
+                <th scope="col">total price</th>
+              </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let cart of order.items; let i = index; trackBy: trackByFn">
+              <td>
+                <img src="{{configuration.host}}/api/guest/file/{{cart.dish.images[0]}}" alt="image" class="cart-image">
+              </td>
+              <td class="td-product-name">{{cart.dish.name}}</td>
+              <td>PHP {{cart.dish.price}}</td>
+              <td>
+                <div class="add-cart mb-0">
+                  <div class="count-input mr-0">
+                    <input class="quantity btn-primary" type="text" value="{{cart.quantity}}" readonly>
+                  </div>
+                </div>
+              </td>
+              <td>PHP {{cart.quantity * cart.dish.price}}
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div *ngIf="searchSuccessfully" class="row">
+          <div class="col-md-7 col-lg-8">
+            <form class="">
+              <div class="card border-0 mb-6">
+                <div class="card-header rounded-top px-0 bg-white py-3 mt-4">
+                  <h4 class="mb-0 text-dark font-size-20">Your Shipping Information</h4>
+                </div>
+
+                <div class="card-body border-0 rounded-bottom px-0 py-6">
+                  <div class="row">
+                    <div class="form-group col-lg-6">
+                      <label>Full Name</label>
+                      <input type="text" class="form-control" value="{{order.orderBy}}" readonly>
+                    </div>
+
+                    <div class="form-group col-lg-6">
+                      <label>Email Address</label>
+                      <input type="email" class="form-control" value="{{order.email}}" readonly>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="form-group col-lg-6">
+                      <label>Phone Number</label>
+                      <input type="text" class="form-control" value="{{order.phone}}" readonly>
+                    </div>
+
+                    <div class="form-group col-lg-6">
+                      <label>Address</label>
+                      <input type="text" class="form-control" value="{{order.address}}" readonly>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <div class="col-md-5 col-lg-4">
+            <div class="card border-0 px-xl-5">
+              <div class="">
+                <h4 class="text-dark font-size-20">Order Summary</h4>
+                <p>Here is the summary of your order</p>
+              </div>
+
+              <div class="media align-items-center border-bottom font-weight-medium py-3">
+                <div class="media-body">
+                  <span class="text-color">Order</span>
+                </div>
+                <span class="text-color">PHP {{order.totalPrice}}</span>
+              </div>
+
+              <div class="media align-items-center border-bottom font-weight-medium py-3">
+                <div class="media-body">
+                  <span class="text-color">Shipping &amp; Handling</span>
+                </div>
+                <span class="text-color">PHP 0</span>
+              </div>
+
+
+              <div class="media justify-content-between align-items-center py-3">
+                <span class="text-dark font-weight-medium">Total</span>
+                <span class="text-dark font-weight-medium">PHP {{order.totalPrice}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!--  footer-->
+  <app-frontend-footer></app-frontend-footer>
+</div>
+</body>

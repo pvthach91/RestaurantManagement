@@ -1,0 +1,38 @@
+<div class="modal-content">
+  <div class="card card-primary">
+    <div class="card-header">
+      <h3 class="card-title">Payslip</h3>
+      <div class="card-tools">
+        <button (click)="close()" type="button" class="btn btn-tool" data-card-widget="remove"><i class="fa fa-times"></i></button>
+      </div>
+    </div>
+    <form role="form" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+      <div class="card-body max-dialog">
+        <div class="form-group">
+          <label>Payslip For:</label>
+          <select class="form-control" required id="payslipType" name="payslipType" [(ngModel)]="form.payslipType" #payslipType="ngModel"
+                  [class.error-validate]="f.submitted && payslipType.invalid && payslipType.errors.required">
+            <option value="PAYING_SALARY">Paying Salary</option>
+            <option value="MARKETING">Marketing</option>
+            <option value="EVENT">Event</option>
+            <option value="OTHER">Other</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Payslip amount</label>
+          <input type="number" class="form-control" placeholder="Payslip amount" required
+                 id="totalPrice" name="totalPrice" [(ngModel)]="form.totalPrice" #totalPrice="ngModel"
+                 [class.error-validate]="f.submitted && totalPrice.invalid && totalPrice.errors.required">
+        </div>
+
+      </div>
+      <div class="clearfix"></div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-danger" (click)="close()">Close</button>
+        <button *ngIf="isNewAction" type="submit" class="btn btn-primary">OK</button>
+      </div>
+    </form>
+  </div>
+</div>

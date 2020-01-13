@@ -1,0 +1,75 @@
+<body id="body" class="up-scroll" data-spy="scroll" data-target=".element-right-sidebar">
+<app-frontend-header currentPage="about-us" (currentPageEmit)='changePage($event)'></app-frontend-header>
+
+<div class="main-wrapper cart-page">
+  <section class="page-title" style="background-image: url(assets/resource/page-title-img.jpg);">
+  </section>
+
+  <div class="element-wrapper">
+    <section class="py-8 py-lg-10">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-10 col-lg-7 col-xl-6">
+            <div class="mb-6 text-center">
+              <div class="section-title">
+                <h2>About us</h2>
+              </div>
+              <p>Here are our manager of company.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-4">
+            <div class="card card-hover border-0 rounded-0 mb-5">
+              <div class="position-relative card-img-wrapper mb-5">
+                <img style="height: 310px" class="card-img rounded-0" src="assets/resource/owner.jpg" alt="card-img">
+              </div>
+
+              <div class="card-body text-center p-0">
+                <a class="d-block">
+                  <h4 class="card-text-hover">Pham Van Thach</h4>
+                </a>
+                <p class="mb-0">Owner</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="card card-hover border-0 rounded-0 mb-5">
+              <div class="position-relative card-img-wrapper mb-5">
+                <img style="height: 310px" class="card-img rounded-0" src="assets/resource/financialmanager.jpg" alt="card-img">
+              </div>
+
+              <div class="card-body text-center p-0">
+                <a class="d-block">
+                  <h4 class="card-text-hover">JD Espineli</h4>
+                </a>
+                <p class="mb-0">Financial Manager</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="card card-hover border-0 rounded-0 mb-5">
+              <div class="position-relative card-img-wrapper mb-5">
+                <img style="height: 310px" class="card-img rounded-0" src="assets/resource/hrmanager.jpg" alt="card-img">
+              </div>
+
+              <div class="card-body text-center p-0">
+                <a class="d-block">
+                  <h4 class="card-text-hover">Mary Ann Reyes Florentino</h4>
+                </a>
+                <p class="mb-0">Human Resource Manager</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!--  footer-->
+  <app-frontend-footer></app-frontend-footer>
+</div>
+</body>

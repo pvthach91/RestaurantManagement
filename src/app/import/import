@@ -1,0 +1,14 @@
+
+
+
+Ng4LoadingSpinnerModule
+
+
+NgMultiSelectDropDownModule
+
+
+SlideshowModule
+
+toaster
+npm install ngx-toastr --save
+npm install @angular/animations --save

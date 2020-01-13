@@ -1,0 +1,46 @@
+<app-menu *ngIf="isHomePage()"
+             (currentPageEmit)='changePage($event)'>
+</app-menu>
+
+<app-about-us *ngIf="isAboutUsPage()"
+          (currentPageEmit)='changePage($event)'>
+</app-about-us>
+
+<app-cart *ngIf="isCartPage()"
+          (currentPageEmit)='changePage($event)'>
+</app-cart>
+
+<app-checkout *ngIf="isCheckoutPage()"
+          (currentPageEmit)='changePage($event)'>
+</app-checkout>
+
+<app-confirmation *ngIf="isConfirmationPage()"
+                  [id]="this.id"
+              (currentPageEmit)='changePage($event)'>
+</app-confirmation>
+
+<app-dish-detail *ngIf="isDishDetailPage()"
+                  [id]="this.id"
+                  (currentPageEmit)='changePage($event)'>
+</app-dish-detail>
+
+<app-job *ngIf="isJobPage()"
+              (currentPageEmit)='changePage($event)'>
+</app-job>
+
+<app-job-detail *ngIf="isJobDetailPage()"
+                 [id]="this.id"
+                 (currentPageEmit)='changePage($event)'>
+</app-job-detail>
+
+<app-reservation *ngIf="isReservationPage()"
+         (currentPageEmit)='changePage($event)'>
+</app-reservation>
+
+<app-track *ngIf="isTrackPage()"
+                (currentPageEmit)='changePage($event)'>
+</app-track>
+
+<app-login *ngIf="isAdminPage()"
+           (currentPageEmit)='changePage($event)'>
+</app-login>

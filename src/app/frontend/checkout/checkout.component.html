@@ -1,0 +1,101 @@
+<body id="body" class="up-scroll" data-spy="scroll" data-target=".element-right-sidebar">
+
+  <app-frontend-header (currentPageEmit)='changePage($event)'></app-frontend-header>
+
+  <div class="main-wrapper shipping">
+  <section class="page-title" style="background-image: url(assets/resource/page-title-img.jpg);">
+  </section>
+
+  <div class="element-wrapper">
+    <section class="py-8 py-md-10">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-7 col-lg-8">
+            <form class="" role="form" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+              <div class="card border-0 mb-6">
+                <div class="card-header rounded-top px-0 bg-white py-3 mt-4">
+                  <h4 class="mb-0 text-dark font-size-20">Enter Your Shipping Address</h4>
+                </div>
+
+                <div class="card-body border-0 rounded-bottom px-0 py-6">
+                  <div class="row">
+                    <div class="form-group col-lg-6">
+                      <label>Full Name</label>
+                      <input type="text" class="form-control" placeholder="Enter your name" required
+                             id="name" name="name" [(ngModel)]="form.name" #name="ngModel"
+                             [class.error-validate]="f.submitted && name.invalid && name.errors.required">
+                    </div>
+
+                    <div class="form-group col-lg-6">
+                      <label>Email Address</label>
+                      <input type="email" class="form-control" placeholder="Enter email address" required email
+                             id="email" name="email" [(ngModel)]="form.email" #email="ngModel"
+                             [class.error-validate]="f.submitted && email.invalid && (email.errors.required  || email.errors.email)">
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="form-group col-lg-6">
+                      <label>Phone Number</label>
+                      <input type="text" class="form-control" placeholder="Enter phone number" required
+                             id="phone" name="phone" [(ngModel)]="form.phone" #phone="ngModel"
+                             [class.error-validate]="f.submitted && phone.invalid && phone.errors.required">
+                    </div>
+
+                    <div class="form-group col-lg-6">
+                      <label>Address</label>
+                      <input type="text" class="form-control" placeholder="Enter address" required
+                             id="address" name="address" [(ngModel)]="form.address" #address="ngModel"
+                             [class.error-validate]="f.submitted && address.invalid && address.errors.required">
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+              <div class="card rounded-0  mb-6">
+                <div class="card-body text-center text-lg-right p-6">
+                  <input type="submit" class="btn btn-primary text-uppercase" value="Confirm to Order Now" />
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <div class="col-md-5 col-lg-4">
+            <div class="card border-0 px-xl-5">
+              <div class="">
+                <h4 class="text-dark font-size-20">Order Summary</h4>
+                <p>Here is the summary of your order</p>
+              </div>
+
+              <div class="media align-items-center border-bottom font-weight-medium py-3">
+                <div class="media-body">
+                  <span class="text-color">Order</span>
+                </div>
+                <span class="text-color">PHP {{totalPrice}}</span>
+              </div>
+
+              <div class="media align-items-center border-bottom font-weight-medium py-3">
+                <div class="media-body">
+                  <span class="text-color">Shipping &amp; Handling</span>
+                </div>
+                <span class="text-color">PHP 0</span>
+              </div>
+
+
+              <div class="media justify-content-between align-items-center py-3">
+                <span class="text-dark font-weight-medium">Total</span>
+                <span class="text-dark font-weight-medium">PHP {{totalPrice}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+
+  <!--  footer-->
+  <app-frontend-footer></app-frontend-footer>
+</div>
+</body>

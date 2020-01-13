@@ -1,0 +1,126 @@
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+  <!-- Menu -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <app-menu-info></app-menu-info>
+
+    <div class="sidebar">
+      <div style="text-align: center">
+        <a  class="admin-menu-user">{{tokenStorage.getCurrentDepartment()}}</a>
+      </div>
+
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <li class="nav-item has-treeview menu-open">
+            <a (click)="goToEmployeePage()" class="nav-link admin-menu-link">
+              <i class="nav-icon fas fa fa-users"></i>
+              <p>Employees</p>
+            </a>
+          </li>
+          <li class="nav-item has-treeview menu-open">
+            <a (click)="goToLeavePage()" class="nav-link admin-menu-link">
+              <i class="nav-icon fas fa fa-calendar"></i>
+              <p>Leaves</p>
+            </a>
+          </li>
+          <li class="nav-item has-treeview menu-open">
+            <a class="nav-link active admin-menu-link">
+              <i class="nav-icon far fa fa-tasks"></i>
+              <p>Jobs</p>
+            </a>
+          </li>
+          <li class="nav-item has-treeview menu-open">
+            <a (click)="goToTimesheetPage()" class="nav-link admin-menu-link">
+              <i class="nav-icon fas fa fa-th"></i>
+              <p>Timesheet</p>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </aside>
+
+  <!-- Main Content-->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Jobs</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item">
+                <a (click)="showDialog(true, null)" class="btn btn-success"><i class="fa fa-plus"></i>New Job</a>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+      <!-- Default box -->
+      <div class="card card-solid">
+        <div class="card-body p-0">
+          <table class="table table-striped projects">
+            <thead>
+            <tr>
+              <th style="width: 1%">
+                #
+              </th>
+              <th>Position</th>
+              <th>Experience Year</th>
+              <th>Education Level</th>
+              <th>Expired Day</th>
+              <th>Salary</th>
+              <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let item of jobs; let i = index;">
+              <td>{{i+1}}</td>
+              <td>{{item.position}}</td>
+              <td>{{item.experienceYear}}</td>
+              <td>{{item.educationLevel}}</td>
+              <td>{{item.expiredDate}}</td>
+              <td>{{item.salary}}</td>
+              <td class="project-actions text-right">
+                <a (click)="showDialog(false, item)" class="btn btn-primary btn-sm mr-1">
+                  <i class="fa fa-folder"></i>View
+                </a>
+                <a (click)="showDeleteDialog(item.id)" class="btn btn-danger btn-sm ml-1">
+                  <i class="fa fa-trash"></i>Delete
+                </a>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="card-footer">
+          <nav aria-label="Contacts Page Navigation">
+            <ul class="pagination justify-content-center m-0" *ngIf="pages.length>0">
+              <li [ngClass]="page==currentPage?'page-item active': 'page-item'" *ngFor="let page of pages">
+                <a (click)="gotoPage(page)" class="page-link">{{page}}</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+
+    </section>
+  </div>
+
+  <!--    Footer-->
+  <footer class="main-footer">
+    <div class="float-right d-none d-sm-block">
+      <b>Version</b> 1.0.1
+    </div>
+    <strong>Copyright &copy; 2019 <a href="https://www.facebook.com/thach.phamvan.56211">Pham Van Thach</a>.</strong> All rights reserved.
+  </footer>
+</div>
+</body>

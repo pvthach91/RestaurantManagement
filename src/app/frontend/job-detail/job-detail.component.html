@@ -1,0 +1,131 @@
+<body id="body" class="up-scroll" data-spy="scroll" data-target=".element-right-sidebar">
+
+  <app-frontend-header currentPage="career" (currentPageEmit)='changePage($event)'></app-frontend-header>
+
+  <div class="main-wrapper service-detail">
+
+  <section class="page-title" style="background-image: url(assets/resource/page-title-img.jpg);">
+  </section>
+
+  <div class="element-wrapper">
+    <section class="py-8 py-md-10">
+      <div class="container">
+        <div class="card border-0 rounded-0 mb-7">
+          <div class="position-relative card-img-wrapper mb-5">
+          </div>
+          <div class="card-body p-0">
+            <h2 class="mb-4">{{job.position}}</h2>
+
+            <p>{{job.description}}</p>
+          </div>
+        </div>
+
+        <div class="">
+          <div class="row">
+            <div class="col-lg-10 col-xl-9">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-7 mb-md-0">
+                    <h3 class="font-size-24 mb-3">About you</h3>
+
+                    <div class="media align-items-baseline mb-1">
+                      <div class="mr-2">
+                        <i class="fa fa-chevron-circle-right text-primary" aria-hidden="true"></i>
+                      </div>
+                      <div class="media-body">
+                        <p class="mb-0">Experience: {{job.experienceYear}}</p>
+                      </div>
+                    </div>
+
+                    <div class="media align-items-baseline mb-1">
+                      <div class="mr-2">
+                        <i class="fa fa-chevron-circle-right text-primary" aria-hidden="true"></i>
+                      </div>
+                      <div class="media-body">
+                        <p class="mb-0">Education: {{job.educationLevel}}</p>
+                      </div>
+                    </div>
+
+                    <div class="media align-items-baseline mb-1">
+                      <div class="mr-2">
+                        <i class="fa fa-chevron-circle-right text-primary" aria-hidden="true"></i>
+                      </div>
+                      <div class="media-body">
+                        <p class="mb-0">Hard working</p>
+                      </div>
+                    </div>
+
+                    <div class="media align-items-baseline mb-1">
+                      <div class="mr-2">
+                        <i class="fa fa-chevron-circle-right text-primary" aria-hidden="true"></i>
+                      </div>
+                      <div class="media-body">
+                        <p class="mb-0">Patient</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="">
+                    <h3 class="font-size-24 mb-3">About the job</h3>
+
+                    <div class="media align-items-baseline mb-1">
+                      <div class="mr-2">
+                        <i class="fa fa-chevron-circle-right text-primary" aria-hidden="true"></i>
+                      </div>
+                      <div class="media-body">
+                        <p class="mb-0">Salary: {{job.salary}}</p>
+                      </div>
+                    </div>
+
+                    <div class="media align-items-baseline mb-1">
+                      <div class="mr-2">
+                        <i class="fa fa-chevron-circle-right text-primary" aria-hidden="true"></i>
+                      </div>
+                      <div class="media-body">
+                        <p class="mb-0">Nice co-workers</p>
+                      </div>
+                    </div>
+
+                    <div class="media align-items-baseline mb-1">
+                      <div class="mr-2">
+                        <i class="fa fa-chevron-circle-right text-primary" aria-hidden="true"></i>
+                      </div>
+                      <div class="media-body">
+                        <p class="mb-0">Company understand employees</p>
+                      </div>
+                    </div>
+
+                    <div class="media align-items-baseline mb-1">
+                      <div class="mr-2">
+                        <i class="fa fa-chevron-circle-right text-primary" aria-hidden="true"></i>
+                      </div>
+                      <div class="media-body">
+                        <p class="mb-0">Expired date: {{job.expiredDate}}</p>
+                      </div>
+                    </div>
+
+                    <div class="media align-items-baseline mb-1">
+                      <div class="media-body">
+                        <button (click)="goToJobPage()" type="button" class="btn btn-primary text-uppercase ml-1">
+                          <i class="fa fa-backward mr-1" aria-hidden="true"></i> Back
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+
+  <!--  footer-->
+  <app-frontend-footer></app-frontend-footer>
+</div>
+</body>

@@ -1,0 +1,167 @@
+<header class="header header-absolute" id="pageTop" style="height: auto;">
+
+  <!-- top-bar -->
+  <div class="d-none d-md-block top-bar">
+    <div class="container">
+      <div class="top-content d-flex justify-content-between align-items-center">
+        <div class="">
+          <span class="text-white d-block font-weight-medium">
+            Hotline: <a class="text-white  mb-0" href="tel:09167568096">+09167568096</a>
+          </span>
+        </div>
+
+        <div class="">
+          <ul class="list-unstyled d-flex align-items-center mb-0">
+            <li>
+              <ul class="d-flex list-unstyled border-right">
+                <li class="mr-4">
+                  <a class="text-white text-hover-primary" href="javascript:void(0)"><i
+                    class="fa fa-facebook-f"></i></a>
+                </li>
+
+                <li class="mr-4">
+                  <a class="text-white text-hover-primary" href="javascript:void(0)"><i
+                    class="fa fa-twitter"></i></a>
+                </li>
+
+                <li class="mr-4">
+                  <a class="text-white text-hover-primary" href="javascript:void(0)"><i
+                    class="fa fa-skype"></i></a>
+                </li>
+
+                <li class="mr-4">
+                  <a class="text-white text-hover-primary" href="javascript:void(0)"><i
+                    class="fa fa-google-plus"></i></a>
+                </li>
+
+                <li class="mr-4">
+                  <a class="text-white text-hover-primary text-hover-primary"
+                     href="javascript:void(0)"><i class="fa fa-weixin"></i></a>
+                </li>
+
+                <li class="mr-4">
+                  <a class="text-white text-hover-primary" href="javascript:void(0)"><i
+                    class="fa fa-youtube-play"></i></a>
+                </li>
+              </ul>
+            </li>
+
+            <li>
+              <div class="nav-cart d-none d-md-block">
+                <a (click)="cartClick()" class="btn-cart icon-toggle"><i class="fa fa-shopping-basket"></i></a>
+                <ul class="list-unstyled cart_item-box" [ngClass]="displayCart?'visible': ''">
+                  <li class="d-flex justify-content-between" *ngIf="shoppingCart.length==0">
+                    <span>Cart is empty</span>
+                  </li>
+
+                  <li *ngFor="let cart of shoppingCart" class="media alert alert-dismissible fade show" role="alert">
+                    <div class="media-head">
+                      <a>
+                        <img src="{{configuration.host}}/api/guest/file/{{cart.dish.images[0]}}"
+                             alt="image" class="cart-image">
+                      </a>
+
+                    </div>
+                    <div class="media-body">
+                      <a>
+                        <h5 class="mt-0">{{cart.dish.name}}</h5>
+                      </a>
+
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">{{cart.quantity * cart.dish.price}}</span>
+                      </button>
+                      <a>
+                        <span class="">{{cart.quantity}} X {{cart.dish.price}}</span>
+                      </a>
+
+                    </div>
+                  </li>
+                  <li class="d-flex justify-content-between">
+                    <a (click)="goToCartPage()"
+                       class="btn btn-sm btn-primary">Your Cart</a>
+                    <a (click)="goToCheckoutPage()"
+                       class="btn btn-sm btn-primary">Checkout</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-md navbar-light-dark" style="opacity: 1;">
+    <div class="container">
+      <a class="navbar-brand" href="home">
+        <img src="assets/resource/logo.png" style="width: 250px;height: 80px">
+      </a>
+
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent"
+              aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+        <img src="assets/resource/toggle.png" alt="toogle">
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav ml-auto">
+
+          <li class="nav-item dropdown mega-dropdown">
+            <a [ngClass]="isHomePage()?'active': 'header-menu'" class="nav-link dropdown-toggle app-link" role="button"
+               (click)="goToHomePage()"
+               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Menu
+            </a>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a  [ngClass]="isCareerPage()?'active': 'header-menu'" class="nav-link dropdown-toggle app-link" role="button"
+                (click)="goToJobPage()"
+               data-toggle="dropdown">
+              Careers
+            </a>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a  [ngClass]="isAboutUsPage()?'active': 'header-menu'"class="nav-link dropdown-toggle app-link" id="blog" role="button"
+                (click)="goToAboutUsPage()"
+               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              About us
+            </a>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a [ngClass]="isCartPage()?'active': 'header-menu'" class="nav-link dropdown-toggle app-link" id="stores" role="button"
+               (click)="goToCartPage()"
+               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Cart
+            </a>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a [ngClass]="isTrackPage()?'active': 'header-menu'" class="nav-link dropdown-toggle app-link"
+               (click)="goToTrackPage()"
+               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Track order
+            </a>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle header-menu app-link"
+               (click)="goToAdminPage()"
+               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Admin
+            </a>
+          </li>
+
+
+          <li class="navbar-btn">
+            <a class="btn btn-sm btn-outline-primary btn-block font-weight-medium text-uppercase app-link reservation-link"
+               (click)="goToReservationPage()">
+              Book Now</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>

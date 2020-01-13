@@ -1,0 +1,77 @@
+@import "~ngx-simple-modal/src/styles/simple-modal.css";
+@import "app/css/toastr.css";
+@import "~ng-pick-datetime/assets/style/picker.min.css";
+.modal-content {
+  margin-top: 70px;
+}
+.max-dialog {
+  max-height: 550px;
+  overflow: auto;
+}
+#messages,#old-messages {
+  margin: 15px 0;
+}
+
+#messages p,
+#old-messages p
+{
+  color: #555;
+  font-size:14px;
+}
+#messages div,
+#old-messages div
+{
+  position:relative;
+  overflow:hidden;
+  height:100px;
+  width: 100px;
+  float: left;
+  margin-left: 10px;
+  border: 1px solid #01a185;
+}
+
+#messages div button,
+#old-messages div button
+{
+  position:absolute;
+  right: 0px;
+  top:0px;
+  color: red;
+  font-weight: bold;
+}
+
+.error-validate {
+  border: 1px solid red !important;
+}
+
+.header-menu{
+  color: white !important;
+}
+
+.header-menu:hover{
+  color: #cfa670 !important;
+}
+
+.admin-menu-link:hover{
+  cursor: pointer;
+}
+
+.admin-menu-user{
+  width: 100%;
+  height: 100%;
+  display: inline-block;
+  font-size: 20px;
+  margin-top: 20px;
+}
+
+.app-link:hover{
+  cursor: pointer;
+}
+
+.reservation-link{
+  color: #cfa670 !important;
+}
+
+.reservation-link:hover{
+  color: white !important;
+}

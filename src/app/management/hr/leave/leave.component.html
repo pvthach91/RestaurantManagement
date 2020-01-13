@@ -1,0 +1,165 @@
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+  <!-- Navbar -->
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+    </ul>
+
+    <!-- SEARCH FORM -->
+    <form class="form-inline ml-3" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+      <div class="input-group input-group-sm">
+
+        <label>Leave Status</label>
+        <select class="form-control ml-1" id="status" name="status" [(ngModel)]="form.status" #status="ngModel">
+          <option value="all">All</option>
+          <option value="OPEN">Open</option>
+          <option value="APPROVED">Approved</option>
+          <option value="CANCELLED">Cancelled</option>
+        </select>
+        <input class="form-control form-control-navbar ml-1" type="search" placeholder="Search" aria-label="Search" id="employeeName" name="employeeName" [(ngModel)]="form.employeeName" #employeeName="ngModel">
+        <div class="input-group-append">
+          <button class="btn btn-navbar" type="submit">
+            <i class="fa fa-search"></i>
+          </button>
+        </div>
+      </div>
+    </form>
+
+    <!-- Right navbar links -->
+    <ul class="navbar-nav ml-auto">
+      <!-- Logout -->
+      <li class="nav-item dropdown">
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Menu -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <app-menu-info></app-menu-info>
+
+    <div class="sidebar">
+      <div style="text-align: center">
+        <a  class="admin-menu-user">{{tokenStorage.getCurrentDepartment()}}</a>
+      </div>
+
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <li class="nav-item has-treeview menu-open">
+            <a (click)="goToEmployeePage()" class="nav-link admin-menu-link">
+              <i class="nav-icon fas fa fa-users"></i>
+              <p>Employees</p>
+            </a>
+          </li>
+          <li class="nav-item has-treeview menu-open">
+            <a class="nav-link active admin-menu-link">
+              <i class="nav-icon fas fa fa-calendar"></i>
+              <p>Leaves</p>
+            </a>
+          </li>
+          <li class="nav-item has-treeview menu-open">
+            <a (click)="goToJobPagePage()" class="nav-link admin-menu-link">
+              <i class="nav-icon far fa fa-tasks"></i>
+              <p>Jobs</p>
+            </a>
+          </li>
+          <li class="nav-item has-treeview menu-open">
+            <a (click)="goToTimesheetPage()" class="nav-link admin-menu-link">
+              <i class="nav-icon fas fa fa-th"></i>
+              <p>Timesheet</p>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Leave</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <a (click)="showDialog(true, null)" class="btn btn-success"><i class="fa fa-plus"></i>New Leave</a>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="card">
+        <div class="card-body p-0">
+          <table class="table table-striped projects">
+            <thead>
+            <tr>
+              <th style="width: 1%">
+                #
+              </th>
+              <th>Employee</th>
+              <th>From</th>
+              <th>To</th>
+              <th>Day Off Request</th>
+              <th>Available Day off</th>
+              <th>Status</th>
+              <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let leave of leaves; let i = index;">
+              <td>{{i+1}}</td>
+              <td>{{leave.employee.name}}</td>
+              <td>{{leave.fromDate | date: 'yyyy/MM/dd'}}</td>
+              <td>{{leave.toDate | date: 'yyyy/MM/dd'}}</td>
+              <td>{{leave.dayOff}}</td>
+              <td>{{leave.employee.currentDayOff}}</td>
+              <td class="project-state">
+                <span *ngIf="isOpen(leave)" class="badge badge-primary">{{leave.status}}</span>
+                <span *ngIf="isApproved(leave)" class="badge badge-success">{{leave.status}}</span>
+                <span *ngIf="isCancelled(leave)" class="badge badge-danger">{{leave.status}}</span>
+              </td>
+              <td class="project-actions text-right">
+                                <a class="btn btn-primary btn-sm mr-1" (click)="showDialog(false, leave)">
+                                  <i class="fa fa-folder"></i>View
+                                </a>
+                <a *ngIf="isOpen(leave)" (click)="approveReservation(leave.id, i)" class="btn btn-info btn-sm">
+                  <i class="fa fa-pencil-alt"></i>Approve
+                </a>
+                <a *ngIf="isOpen(leave)" (click)="cancelReservation(leave.id, i)" class="btn btn-danger btn-sm ml-1">
+                  <i class="fa fa-trash"></i>Cancel
+                </a>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="card-footer">
+          <nav aria-label="Contacts Page Navigation">
+            <ul class="pagination justify-content-center m-0" *ngIf="pages.length>0">
+              <li [ngClass]="page==currentPage?'page-item active': 'page-item'" *ngFor="let page of pages">
+                <a (click)="gotoPage(page)" class="page-link">{{page}}</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </section>
+    <!-- /.content -->
+  </div>
+
+  <footer class="main-footer">
+    <div class="float-right d-none d-sm-block">
+      <b>Version</b> 1.0.1
+    </div>
+    <strong>Copyright &copy; 2019 <a href="https://www.facebook.com/thach.phamvan.56211">Pham Van Thach</a>.</strong> All rights reserved.
+  </footer>
+</div>
+<!-- ./wrapper -->
+</body>

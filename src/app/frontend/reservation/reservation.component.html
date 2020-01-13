@@ -1,0 +1,180 @@
+<body id="body" class="up-scroll" data-spy="scroll" data-target=".element-right-sidebar">
+
+  <app-frontend-header (currentPageEmit)='changePage($event)'></app-frontend-header>
+
+  <div class="main-wrapper reservations">
+  <section class="page-title" style="background-image: url(assets/resource/page-title-img.jpg);">
+  </section>
+
+  <div class="element-wrapper">
+    <section class="reservation">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 col-lg-4 col-xl-3">
+            <div class="book-table mb-5 mb-lg-0">
+              <div class="mb-8">
+                <a href="home"><img
+                  src="assets/resource/logo.png" alt="logo.png" style="width: 200px;height: 80px"></a>
+              </div>
+              <div class="mb-7">
+                <h3 class="">Book Your Table</h3>
+                <p>that will be reserved for you</p>
+              </div>
+              <img src="assets/resource/bowl.png" alt="bowl.png">
+            </div>
+          </div>
+
+          <div class="col-lg-5 col-xl-6 order-md-2">
+            <div class="online-reservation mb-5 mb-md-0 p-6">
+              <div class="mb-6 mb-lg-7">
+                <h4 class="">Make Online Reservation</h4>
+                <p>Find your table now</p>
+              </div>
+
+              <p>Select Number of People, Date and time</p>
+
+              <div class="mb-5">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="select-dropdown">
+                      <div class="form-group">
+                        <select class="select2-select bg-white select2-hidden-accessible"
+                                id="seat" name="seat" [(ngModel)]="form.seat" #seat="ngModel"
+                                [class.error-validate]="f.submitted && seat.invalid && seat.errors.required">
+                          <option value="1" selected="selected">1 Seater</option>
+                          <option value="2">2 Seaters</option>
+                          <option value="3">3 Seaters</option>
+                          <option value="4">4 Seaters</option>
+                          <option value="5">5 Seaters</option>
+                          <option value="6">6 Seaters</option>
+                          <option value="7">7 Seaters</option>
+                          <option value="8">8 Seaters</option>
+                          <option value="9">9 Seaters</option>
+                          <option value="10">10 Seaters</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="select-dropdown">
+                      <div class="form-group">
+                        <input [owlDateTimeTrigger]="datepicker" [owlDateTime]="datepicker" type="text" placeholder="Date" required
+                               id="date" name="date" [(ngModel)]="form.date" #date="ngModel"
+                               [class.error-validate]="f.submitted && date.invalid && date.errors.required">
+                        <owl-date-time [pickerType]="'calendar'" #datepicker></owl-date-time>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="form-group form-group-icon">
+                      <select class="select2-select bg-white select2-hidden-accessible"
+                              id="time" name="time" [(ngModel)]="form.time" #time="ngModel"
+                              [class.error-validate]="f.submitted && time.invalid && time.errors.required">
+                        <option value="10" selected="selected">From 10:00</option>
+                        <option value="11">From 11:00</option>
+                        <option value="12">From 12:00</option>
+                        <option value="13">From 13:00</option>
+                        <option value="14">From 14:00</option>
+                        <option value="15">From 15:00</option>
+                        <option value="16">From 16:00</option>
+                        <option value="17">From 17:00</option>
+                        <option value="18">From 18:00</option>
+                        <option value="19">From 19:00</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="select-dropdown-clock">
+                      <div class="form-group">
+                        <select class="select2-select bg-white select2-hidden-accessible"
+                                id="hour" name="hour" [(ngModel)]="form.hour" #hour="ngModel"
+                                [class.error-validate]="f.submitted && hour.invalid && hour.errors.required">
+                          <option value="1" selected="selected">1 Hour</option>
+                          <option value="2">2 Hours</option>
+                          <option value="3">3 Hours</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="mb-9 mb-md-7 mb-lg-0">
+                <form role="form" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+                  <p>Enter your details</p>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Name" required
+                               id="name" name="name" [(ngModel)]="form.name" #name="ngModel"
+                               [class.error-validate]="f.submitted && name.invalid && name.errors.required">
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Phone" required
+                               id="phone" name="phone" [(ngModel)]="form.phone" #phone="ngModel"
+                               [class.error-validate]="f.submitted && phone.invalid && phone.errors.required">
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <input type="email" class="form-control" placeholder="Email" required
+                               id="email" name="email" [(ngModel)]="form.email" #email="ngModel"
+                               [class.error-validate]="f.submitted && email.invalid && email.errors.required">
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="mb-2">
+                        <button class="btn btn-dark text-uppercase py-3" type="submit">
+                          Book Now
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-3 order-md-1 order-lg-2">
+            <div class="opening-hours bg-img bg-overlay"
+                 style="background-image: url('assets/resource/vegetables.png')">
+              <div class="content">
+                <div class="opening-info">
+                  <h3 class="">Opening Hours</h3>
+                </div>
+
+                <div class="opening-date">
+                  <h5 class=""><em>Monday - Sunday <br> 10:00 - 22:00</em></h5>
+                </div>
+
+                <div class="opening-date">
+                  <h5 class="border-bottom border-primary-light border-2 pb-9"><em>Reservation hours
+                    <br> 1 hour - 3 hours</em></h5>
+                </div>
+
+                <div class="opening-time">
+                  <h4 class="">09167568096</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+
+  <!--  footer-->
+  <app-frontend-footer></app-frontend-footer>
+</div>
+</body>

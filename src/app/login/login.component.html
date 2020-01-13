@@ -1,0 +1,52 @@
+<body class="hold-transition login-page">
+<div class="login-box">
+  <div class="login-logo">
+    <a><b>Food Producer</b></a>
+  </div>
+  <div class="card">
+    <div class="card-body login-card-body">
+      <p class="login-box-msg">Sign in to start your session</p>
+
+      <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="Username" id="username" name="username" [(ngModel)]="form.username" #username="ngModel" required minlength="3">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fa fa-user"></span>
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3" *ngIf="f.submitted && username.invalid">
+          <div *ngIf="username.errors.required" class="text-danger">Username is required</div>
+          <div *ngIf="username.errors.minlength" class="text-danger">Username must be at least 3 characters</div>
+        </div>
+        <div class="input-group mb-3">
+          <input type="password" class="form-control" placeholder="Password" id="password" name="password" [(ngModel)]="form.password" #password="ngModel" required minlength="3">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fa fa-lock"></span>
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3" *ngIf="f.submitted && password.invalid">
+          <div *ngIf="password.errors.required" class="text-danger">Password is required</div>
+          <div *ngIf="password.errors.minlength" class="text-danger">Password must be at least 3 characters</div>
+        </div>
+        <div class="row">
+          <div class="col-8">
+            <div class="icheck-primary">
+            </div>
+          </div>
+          <div class="col-4">
+            <button type="submit" class="btn btn-primary btn-block">Log In</button>
+          </div>
+        </div>
+      </form>
+
+      <p class="mb-1">
+        <a (click)="goToHomePage()" class="app-link">Back home</a>
+      </p>
+    </div>
+  </div>
+</div>
+</body>

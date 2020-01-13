@@ -1,0 +1,107 @@
+<body id="body" class="up-scroll" data-spy="scroll" data-target=".element-right-sidebar">
+  <app-frontend-header currentPage="cart" (currentPageEmit)='changePage($event)'></app-frontend-header>
+
+  <div class="main-wrapper cart-page">
+  <section class="page-title" style="background-image: url(assets/resource/page-title-img.jpg);">
+  </section>
+
+  <div class="element-wrapper">
+    <section class="py-8 py-md-10">
+      <div class="container">
+        <div class="table-responsive-sm table-cart">
+          <table class="table mb-0">
+            <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col">dish</th>
+              <th scope="col">price per dish</th>
+              <th scope="col">quantity</th>
+              <th scope="col">total price</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let cart of shoppingCart; let i = index; trackBy: trackByFn">
+              <td>
+                <img src="{{configuration.host}}/api/guest/file/{{cart.dish.images[0]}}" alt="image" class="cart-image">
+              </td>
+              <td class="td-product-name">{{cart.dish.name}}</td>
+              <td>PHP {{cart.dish.price}}</td>
+              <td>
+                <div class="add-cart mb-0">
+                  <div class="count-input mr-0">
+                    <input class="quantity btn-primary" type="text" [(ngModel)]="shoppingCart[i].quantity">
+                    <a class="incr-btn incr-minus" data-action="decrease" (click)="decreaseQuantity(cart)">
+                      <i class="fa fa-minus font-size-14" aria-hidden="true"></i>
+                    </a>
+                    <a class="incr-btn incr-plus" data-action="increase" (click)="increaseQuantity(cart)">
+                      <i class="fa fa-plus font-size-14" aria-hidden="true"></i>
+                    </a>
+                  </div>
+                </div>
+              </td>
+              <td>PHP {{cart.quantity * cart.dish.price}}
+                <button (click)="removeItem(cart.dish.id)" type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">×</span>
+                </button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <form action="#">
+          <div class="row">
+            <div class="col-sm-6 offset-sm-6 col-xs-12">
+              <div class=" py-5">
+                <div class="table-responsive">
+                  <table class="table mb-1">
+                    <thead>
+                    <tr class="text-dark text-capitalize font-size-20 font-secondary">
+                      <th class="font-weight-medium px-0">Cart Total</th>
+                      <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                      <td class="col-xs-6 py-5 px-0">
+                        Order Total
+                      </td>
+                      <td class="col-xs-6 text-right py-5 px-0">PHP {{totalPrice}}</td>
+                    </tr>
+
+                    <tr>
+                      <td class="col-xs-6 py-5 px-0">
+                        Shipping &amp; Handling
+                      </td>
+                      <td class="col-xs-6 text-right py-5 px-0">PHP 0</td>
+                    </tr>
+
+                    <tr>
+                      <td class="col-xs-6 py-5 px-0">
+                        <strong>Total</strong>
+                      </td>
+                      <td class="col-xs-6 text-right py-5 px-0"><strong>PHP {{totalPrice}}</strong></td>
+                    </tr>
+                    <tr>
+                      <td colspan="2" class="btnPart py-4 px-0">
+                        <a (click)="goToCheckoutPage()" class="btn btn-primary text-uppercase font-weight-medium btn-block">
+                          <i class="fa fa-check-circle-o mr-1 font-size-16" aria-hidden="true"></i> Proceed to checkout
+                        </a>
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+
+  </div> <!-- element wrapper ends -->
+
+  <!--  footer-->
+  <app-frontend-footer></app-frontend-footer>
+</div>
+</body>
