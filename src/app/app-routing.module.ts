@@ -5,6 +5,7 @@ import {LoginComponent} from './login/login.component';
 import {PermissionDeniedComponent} from "./frontend/permission-denied/permission-denied.component";
 import {PageNotFoundComponent} from "./frontend/page-not-found/page-not-found.component";
 import {FrontendComponent} from "./frontend/frontend/frontend.component";
+import {MenuComponent} from "./frontend/menu/menu.component";
 
 const routes: Routes = [
 
@@ -18,7 +19,13 @@ const routes: Routes = [
   // Front end
   {
     path: 'home',
-    component: FrontendComponent
+    component: MenuComponent
+  },
+
+  {
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full'
   },
   {
     path: '403',

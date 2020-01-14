@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
@@ -81,6 +81,7 @@ import { FrontendComponent } from './frontend/frontend/frontend.component';
   ],
   providers: [httpInterceptorProviders],
   bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [
     AlertDialogComponent,
     ConfirmDialogComponent,
