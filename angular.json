@@ -25,7 +25,12 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "src/app/js/aframe-teleport-controls.min.js",
+              "src/app/js/intersection-spawn.js",
+              "src/app/js/random-color.js",
+              "src/app/js/snap.js"
+            ]
           },
           "configurations": {
             "production": {
