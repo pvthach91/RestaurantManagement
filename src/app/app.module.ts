@@ -70,7 +70,6 @@ import { HrManagementComponent } from './management/hr/hr-management/hr-manageme
 import { StockManagementComponent } from './management/stock/stock-management/stock-management.component';
 import { AccountingManagementComponent } from './management/accounting/accounting-management/accounting-management.component';
 import { PermissionPageComponent } from './management/permission-page/permission-page.component';
-import { FrontendComponent } from './frontend/frontend/frontend.component';
 
 
 
@@ -132,8 +131,7 @@ import { FrontendComponent } from './frontend/frontend/frontend.component';
     HrManagementComponent,
     StockManagementComponent,
     AccountingManagementComponent,
-    PermissionPageComponent,
-    FrontendComponent
+    PermissionPageComponent
   ],
   imports: [
     BrowserModule,

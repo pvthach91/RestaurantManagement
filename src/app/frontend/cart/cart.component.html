@@ -1,5 +1,5 @@
 <body id="body" class="up-scroll" data-spy="scroll" data-target=".element-right-sidebar">
-  <app-frontend-header currentPage="cart" (currentPageEmit)='changePage($event)'></app-frontend-header>
+  <app-frontend-header currentPage="cart"></app-frontend-header>
 
   <div class="main-wrapper cart-page">
   <section class="page-title" style="background-image: url(assets/resource/page-title-img.jpg);">
@@ -84,7 +84,7 @@
                     </tr>
                     <tr>
                       <td colspan="2" class="btnPart py-4 px-0">
-                        <a (click)="goToCheckoutPage()" class="btn btn-primary text-uppercase font-weight-medium btn-block">
+                        <a [routerLink]="['/checkout']" class="btn btn-primary text-uppercase font-weight-medium btn-block">
                           <i class="fa fa-check-circle-o mr-1 font-size-16" aria-hidden="true"></i> Proceed to checkout
                         </a>
                       </td>

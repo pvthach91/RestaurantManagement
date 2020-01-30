@@ -1,9 +1,8 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Ng4LoadingSpinnerService} from "ng4-loading-spinner";
 import {ToastrService} from "ngx-toastr";
 import {ReservationRequest} from "../../model/post/reservation-request.model";
 import {ReservationService} from "../../services/reservation.service";
-import {ChangePage} from "../../model/change-page.model";
 
 @Component({
   selector: 'app-reservation',
@@ -11,7 +10,6 @@ import {ChangePage} from "../../model/change-page.model";
   styleUrls: ['./reservation.component.css']
 })
 export class ReservationComponent implements OnInit {
-  @Output() currentPageEmit = new EventEmitter();
 
   form: any = {};
   fromDate: string;
@@ -64,13 +62,6 @@ export class ReservationComponent implements OnInit {
     this.toDate = formatted_date + " " + to + ":00:00";
     console.log(this.fromDate);
     console.log(this.toDate);
-  }
-
-  changePage(changePage: ChangePage) {
-    this.goToPage(changePage);
-  }
-  goToPage(changePage: ChangePage) {
-    this.currentPageEmit.emit(changePage);
   }
 
 }

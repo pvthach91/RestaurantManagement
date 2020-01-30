@@ -77,9 +77,9 @@
                     </div>
                   </li>
                   <li class="d-flex justify-content-between">
-                    <a (click)="goToCartPage()"
+                    <a [routerLink]="['/cart']"
                        class="btn btn-sm btn-primary">Your Cart</a>
-                    <a (click)="goToCheckoutPage()"
+                    <a [routerLink]="['/checkout']"
                        class="btn btn-sm btn-primary">Checkout</a>
                   </li>
                 </ul>
@@ -94,7 +94,7 @@
   <!-- Navbar -->
   <nav class="navbar navbar-expand-md navbar-light-dark" style="opacity: 1;">
     <div class="container">
-      <a class="navbar-brand" href="home">
+      <a class="navbar-brand" [routerLink]="['/menu']">
         <img src="assets/resource/logo.png" style="width: 250px;height: 80px">
       </a>
 
@@ -107,48 +107,42 @@
         <ul class="navbar-nav ml-auto">
 
           <li class="nav-item dropdown mega-dropdown">
-            <a [ngClass]="isHomePage()?'active': 'header-menu'" class="nav-link dropdown-toggle app-link" role="button"
-               (click)="goToHomePage()"
+            <a [routerLink]="['/menu']"[ngClass]="isHomePage()?'active': 'header-menu'" class="nav-link dropdown-toggle app-link" role="button"
                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Menu
             </a>
           </li>
 
           <li class="nav-item dropdown">
-            <a  [ngClass]="isCareerPage()?'active': 'header-menu'" class="nav-link dropdown-toggle app-link" role="button"
-                (click)="goToJobPage()"
+            <a [routerLink]="['/jobs']" [ngClass]="isCareerPage()?'active': 'header-menu'" class="nav-link dropdown-toggle app-link" role="button"
                data-toggle="dropdown">
               Careers
             </a>
           </li>
 
           <li class="nav-item dropdown">
-            <a  [ngClass]="isAboutUsPage()?'active': 'header-menu'"class="nav-link dropdown-toggle app-link" id="blog" role="button"
-                (click)="goToAboutUsPage()"
+            <a [routerLink]="['/about-us']" [ngClass]="isAboutUsPage()?'active': 'header-menu'"class="nav-link dropdown-toggle app-link" id="blog" role="button"
                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               About us
             </a>
           </li>
 
           <li class="nav-item dropdown">
-            <a [ngClass]="isCartPage()?'active': 'header-menu'" class="nav-link dropdown-toggle app-link" id="stores" role="button"
-               (click)="goToCartPage()"
+            <a [routerLink]="['/cart']" [ngClass]="isCartPage()?'active': 'header-menu'" class="nav-link dropdown-toggle app-link" id="stores" role="button"
                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Cart
             </a>
           </li>
 
           <li class="nav-item dropdown">
-            <a [ngClass]="isTrackPage()?'active': 'header-menu'" class="nav-link dropdown-toggle app-link"
-               (click)="goToTrackPage()"
+            <a [routerLink]="['/track']" [ngClass]="isTrackPage()?'active': 'header-menu'" class="nav-link dropdown-toggle app-link"
                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Track order
             </a>
           </li>
 
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle header-menu app-link"
-               (click)="goToAdminPage()"
+            <a [routerLink]="['/auth', 'login']" class="nav-link dropdown-toggle header-menu app-link"
                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Admin
             </a>
@@ -156,8 +150,7 @@
 
 
           <li class="navbar-btn">
-            <a class="btn btn-sm btn-outline-primary btn-block font-weight-medium text-uppercase app-link reservation-link"
-               (click)="goToReservationPage()">
+            <a [routerLink]="['/reservation']" class="btn btn-sm btn-outline-primary btn-block font-weight-medium text-uppercase app-link reservation-link">
               Book Now</a>
           </li>
         </ul>

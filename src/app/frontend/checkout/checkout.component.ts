@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {CartStorageService} from "../../services/cart-storage.service";
 import {configuration} from "../../model/configuration.model";
 import {OrderItem} from "../../model/order-item.model";
@@ -8,7 +8,6 @@ import {Ng4LoadingSpinnerService} from "ng4-loading-spinner";
 import {ToastrService} from "ngx-toastr";
 import {OrderService} from "../../services/order.service";
 import {Router} from "@angular/router";
-import {ChangePage} from "../../model/change-page.model";
 
 @Component({
   selector: 'app-checkout',
@@ -16,7 +15,6 @@ import {ChangePage} from "../../model/change-page.model";
   styleUrls: ['./checkout.component.css']
 })
 export class CheckoutComponent implements OnInit {
-  @Output() currentPageEmit = new EventEmitter();
 
   private configuration = configuration;
   shoppingCart: Array<OrderItem>;
@@ -81,16 +79,8 @@ export class CheckoutComponent implements OnInit {
     return orderRequest;
   }
 
-  changePage(changePage: ChangePage) {
-    this.goToPage(changePage);
-  }
-  goToPage(changePage: ChangePage) {
-    this.currentPageEmit.emit(changePage);
-  }
-
   goToConfirmationPage(id: number) {
-    let changePage: ChangePage = new ChangePage('confirmation', id);
-    this.currentPageEmit.emit(changePage);
+    this.router.navigate(['/confirmation', id]);
   }
 
 }

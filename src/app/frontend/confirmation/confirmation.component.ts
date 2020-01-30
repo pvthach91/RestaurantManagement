@@ -1,6 +1,5 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
-import {ChangePage} from "../../model/change-page.model";
 
 @Component({
   selector: 'app-confirmation',
@@ -8,30 +7,21 @@ import {ChangePage} from "../../model/change-page.model";
   styleUrls: ['./confirmation.component.css']
 })
 export class ConfirmationComponent implements OnInit {
-  @Output() currentPageEmit = new EventEmitter();
 
-  @Input() id: string;
+  orderId: string;
 
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
-  }
+    this.route.params.subscribe(params => {
+      let oid = params['orderId'];
 
-  changePage(changePage: ChangePage) {
-    this.goToPage(changePage);
-  }
-  goToPage(changePage: ChangePage) {
-    this.currentPageEmit.emit(changePage);
-  }
-
-  goToHomePage() {
-    let changePage: ChangePage = new ChangePage('home', null);
-    this.currentPageEmit.emit(changePage);
-  }
-
-  goToTrackPage() {
-    let changePage: ChangePage = new ChangePage('track', null);
-    this.currentPageEmit.emit(changePage);
+      if (oid == null || oid == undefined) {
+        this.orderId = 'Incorrect order Id';
+      } else {
+        this.orderId = params['orderId'];
+      }
+    });
   }
 
 }

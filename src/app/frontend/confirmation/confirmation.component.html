@@ -1,6 +1,6 @@
 <body id="body" class="up-scroll" data-spy="scroll" data-target=".element-right-sidebar">
 
-  <app-frontend-header (currentPageEmit)='changePage($event)'></app-frontend-header>
+  <app-frontend-header></app-frontend-header>
 
   <div class="main-wrapper confirmation">
   <section class="page-title" style="background-image: url(assets/resource/page-title-img.jpg);">
@@ -19,8 +19,8 @@
                 <p>Thanks for shopping! Your order hasn’t shipped yet but we will send you an email when it does.</p>
                 <p class="mb-5">Order ID: <span class="text-dark">{{id}}</span></p>
 
-                <a class="btn btn-outline-dark text-uppercase letter-spacing-5 px-7 py-5 mb-5 mb-md-0 mr-md-2 app-link" (click)="goToHomePage()">Back To Shop</a>
-                <a class="btn btn-outline-dark text-uppercase letter-spacing-5 px-7 py-5 ml-md-2 app-link" (click)="goToTrackPage()">Track Order</a>
+                <a class="btn btn-outline-dark text-uppercase letter-spacing-5 px-7 py-5 mb-5 mb-md-0 mr-md-2 app-link" [routerLink]="['/menu']">Back To Shop</a>
+                <a class="btn btn-outline-dark text-uppercase letter-spacing-5 px-7 py-5 ml-md-2 app-link" [routerLink]="['/track']">Track Order</a>
               </div>
             </div>
           </div>

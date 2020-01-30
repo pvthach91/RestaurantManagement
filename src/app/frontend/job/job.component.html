@@ -1,6 +1,6 @@
 <body id="body" class="up-scroll" data-spy="scroll" data-target=".element-right-sidebar">
 
-  <app-frontend-header currentPage="career" (currentPageEmit)='changePage($event)'></app-frontend-header>
+  <app-frontend-header currentPage="career"></app-frontend-header>
 
   <div class="main-wrapper services">
   <section class="page-title" style="background-image: url(assets/resource/page-title-img.jpg);">
@@ -25,7 +25,7 @@
             <div class="card card-hover border-0 rounded-0 mb-7">
               <a class="position-relative mb-5">PHP {{item.salary  | number}} / month</a>
               <div class="card-body p-0">
-                <a class="d-block app-link" (click)="goToJobDetailPage(item.id)">
+                <a class="d-block app-link" [routerLink]="['detail', item.id]">
                   <h4 class="card-text-hover">{{item.position}}</h4>
                 </a>
                 <p class="mb-0">{{item.description}}</p>

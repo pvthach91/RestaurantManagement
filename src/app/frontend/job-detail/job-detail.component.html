@@ -1,6 +1,6 @@
 <body id="body" class="up-scroll" data-spy="scroll" data-target=".element-right-sidebar">
 
-  <app-frontend-header currentPage="career" (currentPageEmit)='changePage($event)'></app-frontend-header>
+  <app-frontend-header currentPage="career"></app-frontend-header>
 
   <div class="main-wrapper service-detail">
 
@@ -108,7 +108,7 @@
 
                     <div class="media align-items-baseline mb-1">
                       <div class="media-body">
-                        <button (click)="goToJobPage()" type="button" class="btn btn-primary text-uppercase ml-1">
+                        <button [routerLink]="['/jobs']" type="button" class="btn btn-primary text-uppercase ml-1">
                           <i class="fa fa-backward mr-1" aria-hidden="true"></i> Back
                         </button>
                       </div>

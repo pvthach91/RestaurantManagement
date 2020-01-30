@@ -1,6 +1,6 @@
 <body id="body" class="up-scroll" data-spy="scroll" data-target=".element-right-sidebar">
 
-  <app-frontend-header currentPage="home" (currentPageEmit)='changePage($event)'></app-frontend-header>
+  <app-frontend-header currentPage="home"></app-frontend-header>
 
   <div class="main-wrapper menu-single-fullwidth">
   <section class="page-title" style="background-image: url(assets/resource/page-title-img.jpg);">
@@ -62,7 +62,7 @@
                   <button type="button" class="btn btn-primary text-uppercase" (click)="addItemToCart(dishDetail.dto)">
                     <i class="fa fa-shopping-basket mr-1" aria-hidden="true"></i> Add to cart
                   </button>
-                  <button (click)="goToHomePage()" type="button" class="btn btn-primary text-uppercase ml-1">
+                  <button [routerLink]="['/menu']" type="button" class="btn btn-primary text-uppercase ml-1">
                     <i class="fa fa-backward mr-1" aria-hidden="true"></i> Back
                   </button>
                 </div>
@@ -85,7 +85,7 @@
                 </div>
 
                 <div class="card-body p-0">
-                  <a class="d-block app-link" (click)="goToDishDetailPage(rd.id)">
+                  <a class="d-block app-link" [routerLink]="['/menu', 'detail', rd.id]">
                     <h4 class="font-secondary card-text-hover">{{rd.name}} <span class="text-primary pull-right">PHP {{rd.price}}</span></h4>
                   </a>
                   <p class="mb-0" *ngIf="rd.description.length>100">{{rd.description | slice:0:99}}...</p>

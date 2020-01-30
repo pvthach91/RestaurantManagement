@@ -1,5 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {ChangePage} from "../../model/change-page.model";
+import {Component, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-about-us',
@@ -7,17 +6,8 @@ import {ChangePage} from "../../model/change-page.model";
   styleUrls: ['./about-us.component.css']
 })
 export class AboutUsComponent implements OnInit {
-  @Output() currentPageEmit = new EventEmitter();
-
   constructor() { }
 
   ngOnInit() {
-  }
-
-  changePage(changePage: ChangePage) {
-    this.goToPage(changePage);
-  }
-  goToPage(changePage: ChangePage) {
-    this.currentPageEmit.emit(changePage);
   }
 }

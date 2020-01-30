@@ -10,7 +10,16 @@ import {HrManagementComponent} from "./management/hr/hr-management/hr-management
 import {StockManagementComponent} from "./management/stock/stock-management/stock-management.component";
 import {AccountingManagementComponent} from "./management/accounting/accounting-management/accounting-management.component";
 import {PermissionPageComponent} from "./management/permission-page/permission-page.component";
-import {FrontendComponent} from "./frontend/frontend/frontend.component";
+import {DishDetailComponent} from "./frontend/dish-detail/dish-detail.component";
+import {JobDetailComponent} from "./frontend/job-detail/job-detail.component";
+import {CartComponent} from "./frontend/cart/cart.component";
+import {ReservationComponent} from "./frontend/reservation/reservation.component";
+import {JobComponent} from "./frontend/job/job.component";
+import {CheckoutComponent} from "./frontend/checkout/checkout.component";
+import {ConfirmationComponent} from "./frontend/confirmation/confirmation.component";
+import {TrackComponent} from "./frontend/track/track.component";
+import {AboutUsComponent} from "./frontend/about-us/about-us.component";
+import {MenuComponent} from "./frontend/menu/menu.component";
 
 const routes: Routes = [
 
@@ -22,10 +31,53 @@ const routes: Routes = [
 
 
   // Front end
+  // {
+  //   path: 'home',
+  //   component: FrontendComponent
+  // },
+
   {
-    path: 'home',
-    component: FrontendComponent
+    path: 'menu/detail/:id',
+    component: DishDetailComponent
   },
+  {
+    path: 'jobs/detail/:id',
+    component: JobDetailComponent
+  },
+  {
+    path: 'cart',
+    component: CartComponent
+  },
+  {
+    path: 'menu',
+    component: MenuComponent
+  },
+  {
+    path: 'reservation',
+    component: ReservationComponent
+  },
+  {
+    path: 'jobs',
+    component: JobComponent
+  },
+  {
+    path: 'checkout',
+    component: CheckoutComponent
+  },
+  {
+    path: 'confirmation/:orderId',
+    component: ConfirmationComponent
+  },
+  {
+    path: 'track',
+    component: TrackComponent
+  },
+
+  {
+    path: 'about-us',
+    component: AboutUsComponent
+  },
+
 
 
   // HR
@@ -59,7 +111,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'menu',
     pathMatch: 'full'
   },
   {

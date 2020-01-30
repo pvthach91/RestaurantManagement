@@ -1,7 +1,7 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {JobService} from "../../services/job.service";
 import {Job} from "../../model/job.model";
-import {ChangePage} from "../../model/change-page.model";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-job-detail',
@@ -9,34 +9,30 @@ import {ChangePage} from "../../model/change-page.model";
   styleUrls: ['./job-detail.component.css']
 })
 export class JobDetailComponent implements OnInit {
-  @Output() currentPageEmit = new EventEmitter();
 
   job: Job;
-  @Input() id: number;
+  id: number;
 
-  constructor(private jobService: JobService) { }
+  constructor(private route: ActivatedRoute,
+              private jobService: JobService) { }
 
   ngOnInit() {
-    this.jobService.getJob(this.id).subscribe(
-      data => {
-        this.job = data.data;
-      },
-      error => {
-        console.log(error);
+    this.route.params.subscribe(params => {
+      this.id = params['id'];
+      if (this.id == null || this.id == undefined) {
+        // Load error page
+      } else {
+        // Load detail page
+        this.jobService.getJob(this.id).subscribe(
+          data => {
+            this.job = data.data;
+          },
+          error => {
+            console.log(error);
+          }
+        );
       }
-    );
-  }
-
-  changePage(changePage: ChangePage) {
-    this.goToPage(changePage);
-  }
-  goToPage(changePage: ChangePage) {
-    this.currentPageEmit.emit(changePage);
-  }
-
-  goToJobPage() {
-    let changePage: ChangePage = new ChangePage('job', null);
-    this.currentPageEmit.emit(changePage);
+    });
   }
 
 }

@@ -1,9 +1,8 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {configuration} from "../../model/configuration.model";
 import {OrderService} from "../../services/order.service";
 import {ToastrService} from "ngx-toastr";
 import {Order} from "../../model/order.model";
-import {ChangePage} from "../../model/change-page.model";
 
 @Component({
   selector: 'app-track',
@@ -11,7 +10,6 @@ import {ChangePage} from "../../model/change-page.model";
   styleUrls: ['./track.component.css']
 })
 export class TrackComponent implements OnInit {
-  @Output() currentPageEmit = new EventEmitter();
 
   private configuration = configuration;
   order: Order;
@@ -85,13 +83,6 @@ export class TrackComponent implements OnInit {
     } else {
       this.isCancelled = false;
     }
-  }
-
-  changePage(changePage: ChangePage) {
-    this.goToPage(changePage);
-  }
-  goToPage(changePage: ChangePage) {
-    this.currentPageEmit.emit(changePage);
   }
 
 }

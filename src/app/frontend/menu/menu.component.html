@@ -28,8 +28,7 @@
                     </div>
 
                     <div class="card-body p-0">
-                      <a class="d-block app-link"
-                         (click)="goToDishDetailPage(dish.id)">
+                      <a class="d-block app-link" [routerLink]="['detail', dish.id]">
                         <h4 class="card-text-hover">{{dish.name}} <span
                           class="text-primary pull-right">PHP {{dish.price}}</span></h4>
                       </a>

@@ -1,8 +1,7 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {JobService} from "../../services/job.service";
 import {Job} from "../../model/job.model";
 import {configuration} from "../../model/configuration.model";
-import {ChangePage} from "../../model/change-page.model";
 
 @Component({
   selector: 'app-job',
@@ -10,7 +9,6 @@ import {ChangePage} from "../../model/change-page.model";
   styleUrls: ['./job.component.css']
 })
 export class JobComponent implements OnInit {
-  @Output() currentPageEmit = new EventEmitter();
 
   jobs: Array<Job> = new Array<Job>();
   currentPage: number = 1;
@@ -53,17 +51,6 @@ export class JobComponent implements OnInit {
       page = 1;
     }
     this.search(page);
-  }
-
-  changePage(changePage: ChangePage) {
-    this.goToPage(changePage);
-  }
-  goToPage(changePage: ChangePage) {
-    this.currentPageEmit.emit(changePage);
-  }
-  goToJobDetailPage(id: number) {
-    let changePage: ChangePage = new ChangePage('jobDetail', id);
-    this.currentPageEmit.emit(changePage);
   }
 
 }

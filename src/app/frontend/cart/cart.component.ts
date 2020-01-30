@@ -1,8 +1,7 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {configuration} from "../../model/configuration.model";
 import {OrderItem} from "../../model/order-item.model";
 import {CartStorageService} from "../../services/cart-storage.service";
-import {ChangePage} from "../../model/change-page.model";
 
 @Component({
   selector: 'app-cart',
@@ -10,8 +9,6 @@ import {ChangePage} from "../../model/change-page.model";
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit {
-  @Output() currentPageEmit = new EventEmitter();
-
   private configuration = configuration;
   shoppingCart: Array<OrderItem>;
   totalPrice: number;
@@ -51,18 +48,6 @@ export class CartComponent implements OnInit {
   removeItem(dishId: number): void {
     this.cartStorage.removeItem(dishId);
     this.updateCart();
-  }
-
-  changePage(changePage: ChangePage) {
-    this.goToPage(changePage);
-  }
-  goToPage(changePage: ChangePage) {
-    this.currentPageEmit.emit(changePage);
-  }
-
-  goToCheckoutPage() {
-    let changePage: ChangePage = new ChangePage('checkout', null);
-    this.currentPageEmit.emit(changePage);
   }
 
 }
