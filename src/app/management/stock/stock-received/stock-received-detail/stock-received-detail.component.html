@@ -1,0 +1,192 @@
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+
+  <!-- Menu -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <app-menu-info></app-menu-info>
+
+    <div class="sidebar">
+      <div style="text-align: center">
+        <a  class="admin-menu-user">{{tokenStorage.getCurrentDepartment()}}</a>
+      </div>
+
+      <nav class="mt-2">
+        <ul *ngIf="tokenStorage.hasStockRole()" class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <li class="nav-item has-treeview menu-open">
+            <a (click)="goToIngredientPage()" class="nav-link admin-menu-link">
+              <i class="nav-icon fas fa fa-pagelines"></i>
+              <p>Ingredients</p>
+            </a>
+          </li>
+          <li class="nav-item has-treeview menu-open">
+            <a class="nav-link active admin-menu-link">
+              <i class="nav-icon fas fa fa-cart-plus"></i>
+              <p>Stock Receive</p>
+            </a>
+          </li>
+          <li class="nav-item has-treeview menu-open">
+            <a (click)="goToStockReceiveCreatePage()" class="nav-link admin-menu-link">
+              <i class="nav-icon fas fa fa-cart-plus"></i>
+              <p>Create Stock Receive</p>
+            </a>
+          </li>
+          <li class="nav-item has-treeview menu-open">
+            <a (click)="goToStockDeliverPage()" class="nav-link admin-menu-link">
+              <i class="nav-icon fas fa fa-cart-arrow-down"></i>
+              <p>Stock Deliver</p>
+            </a>
+          </li>
+          <li class="nav-item has-treeview menu-open">
+            <a (click)="goToStockDeliverCreatePage()" class="nav-link admin-menu-link">
+              <i class="nav-icon fas fa fa-cart-arrow-down"></i>
+              <p>Create Stock Deliver</p>
+            </a>
+          </li>
+        </ul>
+        <ul *ngIf="tokenStorage.hasAccountingRole()" class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <li class="nav-item has-treeview menu-open">
+            <a (click)="goToReceiptPage()" class="nav-link admin-menu-link">
+              <i class="nav-icon fas fa fa-money"></i>
+              <p>Receipt</p>
+            </a>
+          </li>
+          <li class="nav-item has-treeview menu-open">
+            <a (click)="goToPayslipPage()" class="nav-link admin-menu-link">
+              <i class="nav-icon fas fa fa-money"></i>
+              <p>Payslip</p>
+            </a>
+          </li>
+          <li class="nav-item has-treeview menu-open">
+            <a (click)="goToPayrollPage()" class="nav-link admin-menu-link">
+              <i class="nav-icon far fa fa-credit-card"></i>
+              <p>Payroll</p>
+            </a>
+          </li>
+          <li class="nav-item has-treeview menu-open">
+            <a class="nav-link active admin-menu-link">
+              <i class="nav-icon far fa fa-credit-card"></i>
+              <p>Request from stock</p>
+            </a>
+          </li>
+          <li class="nav-item has-treeview menu-open">
+            <a (click)="goToReportPage()" class="nav-link admin-menu-link">
+              <i class="nav-icon fas fa fa-pie-chart"></i>
+              <p>Report</p>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </aside>
+
+  <!-- Main Content-->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Stock Receive</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item">
+                <a (click)="goToStockReceivePage()" class="btn btn-primary"><i class="fa fa-backward"></i> Go back</a>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Stock received </h3>
+              </div>
+              <form>
+                <div class="card-body">
+                  <div class="form-group">
+                    <label>Stock Ref</label>
+                    <input type="text" class="form-control" value="{{stock.stockRef}}" readonly>
+                  </div>
+
+                  <div class="form-group">
+                    <label>Date Created</label>
+                    <input type="text" class="form-control" value="{{stock.date}}" readonly>
+                  </div>
+                  <div class="form-group">
+                    <label>Created By</label>
+                    <input type="text" class="form-control" readonly value="{{stock.createdBy}}">
+                  </div>
+                </div>
+              </form>
+            </div>
+
+          </div>
+
+          <div class="col-md-6">
+            <div class="card card-warning">
+              <div class="card">
+                <div class="card-header">
+                  <h3 class="card-title">Ingredient Items</h3>
+                  <span *ngIf="isAccWaiting || isAccApproved" class="badge bg-primary pull-right">{{stock.status}}</span>
+                  <span *ngIf="isStockApproved" class="badge bg-success pull-right">{{stock.status}}</span>
+                  <span *ngIf="isCancelled" class="badge bg-danger pull-right">{{stock.status}}</span>
+                </div>
+                <div class="card-body p-0">
+                  <table class="table table-striped">
+                    <thead>
+                    <tr>
+                      <th style="width: 10px">#</th>
+                      <th>Ingredient</th>
+                      <th>Unit</th>
+                      <th>Quantity</th>
+                      <th>Price per unit</th>
+                      <th>Total price</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let item of stock.stockItems; let i = index">
+                      <td>{{i + 1}}</td>
+                      <td>{{item.ingredient.name}}</td>
+                      <td>{{item.ingredient.unit}}</td>
+                      <td>{{item.quantity}}</td>
+                      <td>PHP {{item.pricePerUnit}}</td>
+                      <td>{{item.quantity * item.pricePerUnit}}</td>
+                    </tr>
+                    <tr>
+                      <td colspan="5"><strong>Total price</strong></td>
+                      <td>PHP {{stock.totalPrice}}</td>
+                      <td></td>
+                    </tr>
+                    </tbody>
+                  </table>
+                  <div class="card-footer pull-right">
+                    <button *ngIf="isAccApproved" (click)="approveStock()" class="btn btn-warning">Stock Approve</button>
+                    <button *ngIf="isAccWaiting && tokenStorage.hasAccountingRole()" (click)="accountingApprove()" class="btn btn-warning">Accounting Approve</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+  </div>
+
+  <!--    Footer-->
+  <footer class="main-footer">
+    <div class="float-right d-none d-sm-block">
+      <b>Version</b> 1.0.1
+    </div>
+    <strong>Copyright &copy; 2019 <a href="https://www.facebook.com/thach.phamvan.56211">Pham Van Thach</a>.</strong> All rights reserved.
+  </footer>
+</div>
+</body>

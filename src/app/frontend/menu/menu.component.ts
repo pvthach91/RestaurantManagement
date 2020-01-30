@@ -14,6 +14,12 @@ import {ChangePage} from "../../model/change-page.model";
 export class MenuComponent implements OnInit {
   @Output() currentPageEmit = new EventEmitter();
 
+  dishes: Array<Dish> = new Array<Dish>();
+  currentPage: number;
+  totalPage: number;
+  pages: Array<number> = new Array<number>();
+
+  private configuration = configuration;
 
   constructor(private dishService: DishService,
               private toastr: ToastrService,
@@ -22,37 +28,58 @@ export class MenuComponent implements OnInit {
   }
 
   ngOnInit() {
-
-
-
-
-    var boxEl = document.querySelector('a-box');
-    // boxEl.setAttribute('width', 5);
-    // boxEl.setAttribute('color', 'red');
-
-    boxEl.addEventListener('click', (e) => {
-      boxEl.setAttribute('color', 'blue');
-      // console.log(e.detail.intersection.point)
-      // console.log(e.detail);
-
-    });
-    // boxEl.addEventListener('click', function () {
-    //   // If we are using the cursor component.
-    //   boxEl.setAttribute('color', 'blue');
-    // });
-    // boxEl.emit('some-event');
-    // boxEl.removeAttribute('color');
-    // boxEl.querySelectorAll('a-sphere');
-    //
-    // var sphereEl = document.createElement('a-sphere');
-    // sphereEl.setAttribute('radius', 1);
-    // document.querySelector('a-scene').appendChild(sphereEl);
-    // sphereEl.addEventListener('loaded', function () {
-    //   console.log('sphere attached');
-    // });
-
+    this.search(1);
   }
 
+  search(page: number) {
+    this.dishService.getDishes(page, configuration.pageSizeGrid).subscribe(
+      data => {
+        this.dishes = data.data;
+        this.currentPage = data.current;
+        this.totalPage = data.total;
+        this.makePages();
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
 
+  makePages() {
+    this.pages = new Array<number>();
+    if (this.totalPage < 1) {
+      // do nothing
+    } else {
+      for (var i = 1; i <= this.totalPage; i++) {
+        this.pages.push(i);
+      }
+    }
+  }
+
+  gotoPage(page: number) {
+    if(page <1) {
+      page = 1;
+    }
+    this.search(page);
+  }
+
+  addItemToCart(dish: Dish) {
+    let added = this.cartStorage.addItem(dish, 1);
+    if (added) {
+      this.toastr.success("Added to cart successfully");
+    }
+  }
+
+  changePage(changePage: ChangePage) {
+    this.goToPage(changePage);
+  }
+  goToPage(changePage: ChangePage) {
+    this.currentPageEmit.emit(changePage);
+  }
+
+  goToDishDetailPage(id: number) {
+    let changePage: ChangePage = new ChangePage('dishDetail', id);
+    this.currentPageEmit.emit(changePage);
+  }
 
 }

@@ -1,0 +1,162 @@
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <!-- SEARCH FORM -->
+    <form class="form-inline ml-3" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+      <div class="input-group input-group-sm">
+        <label>Order Status</label>
+        <select class="form-control ml-1" id="status" name="status" [(ngModel)]="form.status" #status="ngModel">
+          <option value="all">All</option>
+          <option value="PROCESSING">Processing</option>
+          <option value="PROCESSED">Processed</option>
+          <option value="DELIVERING">Delivering</option>
+          <option value="FINISHED">Finished</option>
+          <option value="CANCELLED">Cancelled</option>
+        </select>
+
+        <input class="form-control form-control-navbar ml-1" type="search" placeholder="Search order ref" aria-label="Search" id="orderId" name="orderId" [(ngModel)]="form.orderId" #orderId="ngModel">
+        <div class="input-group-append">
+          <button class="btn btn-navbar" type="submit">
+            <i class="fa fa-search"></i>
+          </button>
+        </div>
+      </div>
+    </form>
+
+  </nav>
+
+  <!-- Menu -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <app-menu-info></app-menu-info>
+
+    <div class="sidebar">
+      <div style="text-align: center">
+        <a  class="admin-menu-user">{{tokenStorage.getCurrentDepartment()}}</a>
+      </div>
+
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <li class="nav-item has-treeview menu-open">
+            <a (click)="goToDishPage()" class="nav-link admin-menu-link">
+              <i class="nav-icon fas fa fa-delicious"></i>
+              <p>Dishes</p>
+            </a>
+          </li>
+          <li class="nav-item has-treeview menu-open">
+            <a class="nav-link active admin-menu-link">
+              <i class="nav-icon fas fa fa-shopping-cart"></i>
+              <p>Orders</p>
+            </a>
+          </li>
+          <li class="nav-item has-treeview menu-open">
+            <a (click)="goToReservationPage()" class="nav-link admin-menu-link">
+              <i class="nav-icon fas fa fa-cutlery"></i>
+              <p>Reservations</p>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </aside>
+
+  <!-- Main Content-->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Orders</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item">
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="content">
+
+      <div class="card">
+      <div class="card-body p-0">
+        <table class="table table-striped projects">
+          <thead>
+          <tr>
+            <th style="width: 1%">
+              #
+            </th>
+            <th>Order Ref</th>
+            <th>Date</th>
+            <th>Order By</th>
+            <th>Total Price</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let order of orders; let i = index;">
+            <td>{{i+1}}</td>
+            <td>
+              <a>{{order.orderId}}</a>
+            </td>
+            <td>{{order.date}}</td>
+            <td>
+              {{order.orderBy}}
+            </td>
+            <td>
+              {{order.totalPrice}}
+            </td>
+            <td class="project-state">
+              <span *ngIf="isProcessing(order) || isProcessed(order)" class="badge badge-primary">{{order.status}}</span>
+              <span *ngIf="isDelivering(order)" class="badge badge-success">{{order.status}}</span>
+              <span *ngIf="isFinished(order)" class="badge badge-dark">{{order.status}}</span>
+              <span *ngIf="isCancelled(order)" class="badge badge-danger">{{order.status}}</span>
+            </td>
+            <td class="project-actions text-right">
+              <a class="btn btn-primary btn-sm mr-1" (click)="goToOrderDetailPage(order.id)">
+                <i class="fa fa-folder"></i>View
+              </a>
+              <a *ngIf="isProcessing(order)" (click)="processOrder(order.id, i)" class="btn btn-info btn-sm">
+                <i class="fa fa-pencil-alt"></i>Set Processed
+              </a>
+              <a *ngIf="isProcessed(order)" (click)="deliverOrder(order.id, i)" class="btn btn-info btn-sm">
+                <i class="fa fa-pencil-alt"></i>Set Delivering
+              </a>
+              <a *ngIf="isDelivering(order)" (click)="finishOrder(order.id, i)" class="btn btn-info btn-sm">
+                <i class="fa fa-pencil-alt"></i>Set Finished
+              </a>
+              <a *ngIf="isProcessing(order) || isProcessed(order)" (click)="cancelOrder(order.id, i)" class="btn btn-danger btn-sm ml-1">
+                <i class="fa fa-trash"></i>Cancel
+              </a>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card-footer">
+        <nav aria-label="Contacts Page Navigation">
+          <ul class="pagination justify-content-center m-0" *ngIf="pages.length>0">
+            <li [ngClass]="page==currentPage?'page-item active': 'page-item'" *ngFor="let page of pages">
+              <a (click)="gotoPage(page)" class="page-link">{{page}}</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+    </section>
+  </div>
+
+  <!--    Footer-->
+  <footer class="main-footer">
+    <div class="float-right d-none d-sm-block">
+      <b>Version</b> 1.0.1
+    </div>
+    <strong>Copyright &copy; 2019 <a href="https://www.facebook.com/thach.phamvan.56211">Pham Van Thach</a>.</strong> All rights reserved.
+  </footer>
+</div>
+</body>

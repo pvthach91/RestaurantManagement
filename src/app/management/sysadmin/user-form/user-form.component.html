@@ -1,0 +1,81 @@
+<div class="modal-content">
+  <div class="card card-primary">
+    <div class="card-header">
+      <h3 class="card-title">User</h3>
+      <div class="card-tools">
+        <button (click)="close()" type="button" class="btn btn-tool" data-card-widget="remove"><i class="fa fa-times"></i></button>
+      </div>
+    </div>
+    <form role="form" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+      <div class="card-body max-dialog">
+        <div class="form-group">
+          <label>Username *
+            <span *ngIf="f.submitted && username.invalid">
+                        <span *ngIf="username.errors.required" class="text-danger"><small>Username is required</small></span>
+                        <span *ngIf="username.errors.minlength" class="text-danger"><small>Username must be at least 3 characters</small></span>
+                      </span>
+          </label>
+          <input type="text" class="form-control" id="username" name="username" [(ngModel)]="form.username" #username="ngModel" required minlength="3">
+        </div>
+        <div class="form-group">
+          <label>Full Name *
+            <span *ngIf="f.submitted && name.invalid">
+                        <span *ngIf="name.errors.required" class="text-danger"><small>Name is required</small></span>
+                        <span *ngIf="name.errors.minlength" class="text-danger"><small>Name must be at least 3 characters</small></span>
+                      </span>
+          </label>
+          <input type="text" class="form-control" id="name" name="name" [(ngModel)]="form.name" #name="ngModel" required minlength="3">
+        </div>
+        <div class="form-group">
+          <label>Email *
+            <span *ngIf="f.submitted && email.invalid">
+                        <span *ngIf="email.errors.required" class="text-danger"><small>Email is required</small></span>
+                        <span *ngIf="email.errors.email" class="text-danger"><small>Email must be a valid email address</small></span>
+                      </span>
+          </label>
+          <input type="email" class="form-control" id="email" name="email" [(ngModel)]="form.email" #email="ngModel" required email>
+        </div>
+        <div class="form-group">
+          <label>Phone *
+            <span *ngIf="f.submitted && phone.invalid">
+                        <span *ngIf="phone.errors.required" class="text-danger"><small>Phone is required</small></span>
+                        <span *ngIf="phone.errors.minlength" class="text-danger"><small>Phone must be at least 10 numbers</small></span>
+                      </span>
+          </label>
+          <input type="text" class="form-control" id="phone" name="phone" [(ngModel)]="form.phone" #phone="ngModel"
+                 required minlength="10">
+        </div>
+        <div class="form-group">
+          <label>Password *
+            <span *ngIf="f.submitted && password.invalid">
+                        <span *ngIf="password.errors.required" class="text-danger"><small>Password is required</small></span>
+                        <span *ngIf="password.errors.minlength" class="text-danger"><small>Password must be at least 3 characters</small></span>
+                      </span>
+          </label>
+          <input type="password" class="form-control" id="password" name="password" [(ngModel)]="form.password" #password="ngModel"
+                 required minlength="3">
+        </div>
+        <div class="form-group">
+          <label>User role *
+            <span *ngIf="f.submitted && role.invalid">
+                        <span *ngIf="role.errors.required" class="text-danger"><small>Role is required</small></span>
+                      </span>
+          </label>
+          <select class="form-control" id="role" name="role" [(ngModel)]="form.role" #role="ngModel" required>
+            <option value="createHRUser">HR Role</option>
+            <option value="createAccountingUser">Accounting Role</option>
+            <option value="createStockUser">Stock Role</option>
+            <option value="createSaleUser">Sale Role</option>
+          </select>
+        </div>
+
+      </div>
+      <div class="clearfix"></div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-danger" (click)="close()">Close</button>
+        <button type="submit" class="btn btn-primary">Ok</button>
+      </div>
+    </form>
+  </div>
+</div>

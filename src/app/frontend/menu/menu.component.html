@@ -1,26 +1,58 @@
-<a-scene>
-  <a-assets>
-<!--    <img id="groundTexture" src="https://cdn.aframe.io/a-painter/images/floor.jpg">-->
-    <img id="skyTexture" src="assets/resource/puydesancy.jpg">
-    <a-mixin id="voxel"
-             geometry="primitive: box; height: 0.5; width: 0.5; depth: 0.5"
-             material="shader: standard"
-             random-color
-             snap="offset: 0.25 0.25 0.25; snap: 0.5 0.5 0.5"
-    ></a-mixin>
-  </a-assets>
+<body id="body" class="up-scroll" data-spy="scroll" data-target=".element-right-sidebar">
+  <app-frontend-header currentPage="home" (currentPageEmit)='changePage($event)'></app-frontend-header>
 
-<!--  <a-cylinder id="ground" src="#groundTexture" radius="30" height="0.1"></a-cylinder>-->
+  <div class="main-wrapper menu-grid-fullwidth">
+    <section class="page-title" style="background-image: url(assets/resource/page-title-img.jpg);">
+    </section>
 
-  <a-sky id="background" src="#skyTexture" rotation="0 -130 0" theta-length="90" radius="10"></a-sky>
-<!--  <a-sky src="assets/resource/puydesancy.jpg" rotation="0 -130 0"></a-sky>-->
+    <!-- Grid Wrapper For All Elements -->
+    <div class="element-wrapper">
+      <section class="py-10">
+        <div class="container">
+          <div>
+            <div class="tab-pane fade active show" id="pills-snacks" role="tabpanel"
+                 aria-labelledby="pills-snacks-tab">
+              <div class="row">
+                <div class="col-md-6 col-lg-4" *ngFor="let dish of dishes">
+                  <div class="card card-hover border-0 rounded-0 mb-7">
+                    <div class="position-relative card-img-wrapper mb-5">
+                      <img class="card-img rounded-0" style="height: 220px"
+                           src="{{configuration.host}}/api/guest/file/{{dish.images[0]}}"
+                           alt="card-img">
+                      <div class="card-img-overlay">
+                        <a (click)="addItemToCart(dish)"
+                           class="card-icon">
+                          <i class="fa fa-cart-plus text-white"></i>
+                        </a>
+                      </div>
+                    </div>
 
-  <!-- Hands. -->
-<!--  <a-entity id="teleHand" hand-controls="left" teleport-controls="type: parabolic; collisionEntities: [mixin='voxel'], #ground"></a-entity>-->
-<!--  <a-entity id="blockHand" hand-controls="right" controller-cursor intersection-spawn="event: click; mixin: voxel"></a-entity>-->
+                    <div class="card-body p-0">
+                      <a class="d-block app-link"
+                         (click)="goToDishDetailPage(dish.id)">
+                        <h4 class="card-text-hover">{{dish.name}} <span
+                          class="text-primary pull-right">PHP {{dish.price}}</span></h4>
+                      </a>
+                      <p class="mb-0" *ngIf="dish.description.length<=100">{{dish.description}}</p>
+                      <p class="mb-0" *ngIf="dish.description.length>100">{{dish.description | slice:0:99}}...</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <nav aria-label="Contacts Page Navigation">
+            <ul class="pagination justify-content-center m-0" *ngIf="pages.length>0">
+              <li [ngClass]="page==currentPage?'page-item active': 'page-item'" *ngFor="let page of pages">
+                <a (click)="gotoPage(page)" class="page-link">{{page}}</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </section>
 
-  <!-- Camera. -->
-  <a-camera>
-    <a-cursor intersection-spawn="event: click; mixin: voxel"></a-cursor>
-  </a-camera>
-</a-scene>
+    </div>
+
+    <app-frontend-footer></app-frontend-footer>
+  </div>
+</body>

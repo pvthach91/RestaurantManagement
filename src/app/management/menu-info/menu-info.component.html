@@ -1,0 +1,7 @@
+<div style="text-align: center">
+  <a class="admin-menu-user admin-menu-link" (click)="confirmLogout()" *ngIf="tokenStorage.isLoggedIn()">
+    <span class="font-weight-light" style="color: white">{{tokenStorage.getFullName()}}
+      <i class="fa fa-sign-out"></i>
+    </span>
+  </a>
+</div>

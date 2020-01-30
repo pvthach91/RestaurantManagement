@@ -1,0 +1,158 @@
+<body class="hold-transition sidebar-mini">
+  <div class="wrapper">
+    <!-- Navbar -->
+    <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+      <!-- Left navbar links -->
+      <ul class="navbar-nav">
+      </ul>
+
+      <!-- SEARCH FORM -->
+      <form class="form-inline ml-3" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+        <div class="input-group input-group-sm">
+          <label>Department</label>
+          <select class="form-control ml-1" id="department" name="department" [(ngModel)]="form.department" #department="ngModel">
+            <option value="">All</option>
+            <option value="Admin Department">Admin Department</option>
+            <option value="HR Department">HR Department</option>
+            <option value="Accounting Department">Accounting Department</option>
+            <option value="Stock Department">Stock Department</option>
+            <option value="Sale Department">Sale Department</option>
+          </select>
+
+          <input class="form-control form-control-navbar ml-1" type="search" placeholder="Search" aria-label="Search" id="name" name="name" [(ngModel)]="form.name" #name="ngModel">
+          <div class="input-group-append">
+            <button class="btn btn-navbar" type="submit">
+              <i class="fa fa-search"></i>
+            </button>
+          </div>
+        </div>
+      </form>
+
+      <!-- Right navbar links -->
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item dropdown">
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Menu -->
+    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+      <app-menu-info></app-menu-info>
+
+      <div class="sidebar">
+        <div style="text-align: center">
+          <a  class="admin-menu-user">{{tokenStorage.getCurrentDepartment()}}</a>
+        </div>
+
+        <nav class="mt-2">
+          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <li class="nav-item has-treeview menu-open">
+              <a class="nav-link active admin-menu-link">
+                <i class="nav-icon fas fa fa-users"></i>
+                <p>Employees</p>
+              </a>
+            </li>
+            <li class="nav-item has-treeview menu-open">
+              <a (click)="goToLeavePage()" class="nav-link admin-menu-link">
+                <i class="nav-icon fas fa fa-calendar"></i>
+                <p>Leaves</p>
+              </a>
+            </li>
+            <li class="nav-item has-treeview menu-open">
+              <a (click)="goToJobPagePage()" class="nav-link admin-menu-link">
+                <i class="nav-icon far fa fa-tasks"></i>
+                <p>Jobs</p>
+              </a>
+            </li>
+            <li class="nav-item has-treeview menu-open">
+              <a (click)="goToTimesheetPage()" class="nav-link admin-menu-link">
+                <i class="nav-icon fas fa fa-th"></i>
+                <p>Timesheet</p>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </aside>
+
+    <!-- Main Content-->
+    <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Employees</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <a (click)="showDialog(true, null)" class="btn btn-success"><i class="fa fa-plus"></i>New Employee</a>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="content">
+
+      <!-- Default box -->
+      <div class="card card-solid">
+        <div class="card-body pb-0">
+          <div class="row d-flex align-items-stretch">
+            <div *ngFor="let employee of employees" class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch">
+              <div class="card bg-light">
+                <div class="card-header text-muted border-bottom-0">
+                  Dept: {{employee.department.name}}
+                </div>
+                <div class="card-body pt-0">
+                  <div class="row">
+                    <div class="col-7">
+                      <h2 class="lead"><b>{{employee.name}}</b></h2>
+                      <p class="text-muted text-sm"><b>Dob: </b> {{employee.dob | date: 'yyyy/MM/dd'}} </p>
+                      <ul class="ml-4 mb-0 fa-ul text-muted">
+                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa fa-building"></i></span> Address: {{employee.address}}</li>
+                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa fa-phone"></i></span> Phone #: {{employee.phone}}</li>
+                      </ul>
+                    </div>
+                    <div class="col-5 text-center">
+                      <img src="{{configuration.host}}/api/guest/file/{{employee.photo}}" alt="" class="img-circle img-fluid">
+                    </div>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <div class="text-right">
+<!--                    <a href="#" class="btn btn-sm bg-teal">-->
+<!--                      <i class="fas fa fa-comments"></i>-->
+<!--                    </a>-->
+                    <a (click)="showDialog(false, employee)" class="btn btn-sm btn-primary">
+                      <i class="fas fa fa-user"></i> View Profile
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-footer">
+          <nav aria-label="Contacts Page Navigation">
+            <ul class="pagination justify-content-center m-0" *ngIf="pages.length>0">
+              <li [ngClass]="page==currentPage?'page-item active': 'page-item'" *ngFor="let page of pages">
+                <a (click)="gotoPage(page)" class="page-link">{{page}}</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+
+    </section>
+  </div>
+
+    <footer class="main-footer">
+    <div class="float-right d-none d-sm-block">
+      <b>Version</b> 1.0.1
+    </div>
+      <strong>Copyright &copy; 2019 <a href="https://www.facebook.com/thach.phamvan.56211">Pham Van Thach</a>.</strong> All rights reserved.
+  </footer>
+</div>
+</body>
