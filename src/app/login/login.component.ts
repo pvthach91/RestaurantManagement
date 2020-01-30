@@ -1,13 +1,12 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 
-import { AuthService } from '../auth/auth.service';
-import { TokenStorageService } from '../auth/token-storage.service';
-import { AuthLoginInfo } from '../auth/login-info';
+import {AuthService} from '../auth/auth.service';
+import {TokenStorageService} from '../auth/token-storage.service';
+import {AuthLoginInfo} from '../auth/login-info';
 import {ToastrService} from "ngx-toastr";
 import {Ng4LoadingSpinnerService} from "ng4-loading-spinner";
 import {SimpleModalService} from "ngx-simple-modal";
-import {AlertDialogComponent} from "../util/alert/alert-dialog.component";
-import {ChangePage} from "../model/change-page.model";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -23,7 +22,8 @@ export class LoginComponent implements OnInit {
               private tokenStorage: TokenStorageService,
               private SimpleModalService: SimpleModalService,
               private spinnerService: Ng4LoadingSpinnerService,
-              private toastr: ToastrService) { }
+              private toastr: ToastrService,
+              private router: Router) { }
 
   ngOnInit() {
     if (this.tokenStorage.isLoggedIn()) {
@@ -62,10 +62,7 @@ export class LoginComponent implements OnInit {
 
   reloadPage() {
     let defaultPage = this.tokenStorage.getDefaultPage();
-    window.location.href = defaultPage;
-  }
-  goToHomePage() {
-    let changePage: ChangePage = new ChangePage('home', null);
-    this.currentPageEmit.emit(changePage);
+    defaultPage = '/' + defaultPage;
+    this.router.navigate([defaultPage]);
   }
 }
